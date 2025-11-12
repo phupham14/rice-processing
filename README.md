@@ -26,62 +26,61 @@ Ví dụ: ảnh xám chứa nhiều hạt gạo trên nền tương phản.
 
 ---
 
-## 💻 Code minh họa
+📦 Hướng dẫn cài đặt
+1️⃣ Yêu cầu hệ thống
 
-```python
-import cv2
-import numpy as np
-from matplotlib import pyplot as plt
+Python ≥ 3.8
 
-# 1. Đọc ảnh xám
-img = cv2.imread('Proj1.2\\4.png', cv2.IMREAD_GRAYSCALE)
+OpenCV ≥ 4.5
 
-# 2. Cân bằng sáng
-background = cv2.GaussianBlur(img, (55, 55), 0)
-corrected = cv2.subtract(img, background)
-corrected = cv2.normalize(corrected, None, 0, 255, cv2.NORM_MINMAX)
+NumPy
 
-# 3. Lọc nhiễu
-blur = cv2.GaussianBlur(corrected, (5, 5), 0)
+Matplotlib
 
-# 4. Ngưỡng hóa Otsu
-_, thresh = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-if np.mean(blur[thresh == 255]) < np.mean(blur[thresh == 0]):
-    thresh = cv2.bitwise_not(thresh)
+2️⃣ Cài đặt thư viện
+pip install opencv-python numpy matplotlib
 
-# 5. Morphology để làm sạch
-kernel = np.ones((3,3), np.uint8)
-opening = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel, iterations=2)
-closing = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, kernel, iterations=2)
+3️⃣ Chạy chương trình
 
-# 6. Distance Transform để tách hạt
-dist = cv2.distanceTransform(closing, cv2.DIST_L2, 5)
-dist = cv2.normalize(dist, None, 0, 1.0, cv2.NORM_MINMAX)
-_, sure_fg = cv2.threshold(dist, 0.3, 1.0, cv2.THRESH_BINARY)
-sure_fg = np.uint8(sure_fg * 255)
+Lưu file thành rice_counter.py, sau đó chạy:
 
-# 7. Đếm số hạt
-num_labels, labels = cv2.connectedComponents(sure_fg)
-print("Số hạt gạo phát hiện được:", num_labels - 1)
+python rice_counter.py
 
-# 8. Vẽ kết quả
-contours, _ = cv2.findContours(sure_fg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-result = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 
-for contour in contours:
-    x, y, w, h = cv2.boundingRect(contour)
-    cv2.rectangle(result, (x, y), (x + w, y + h), (0, 255, 0), 2)
+Kết quả sẽ hiển thị:
 
-plt.figure(figsize=(12, 5))
-plt.subplot(1, 3, 1)
-plt.imshow(cv2.cvtColor(corrected, cv2.COLOR_GRAY2RGB))
-plt.title('Cân bằng sáng')
+Ảnh sau cân bằng sáng
 
-plt.subplot(1, 3, 2)
-plt.imshow(cv2.cvtColor(thresh, cv2.COLOR_GRAY2RGB))
-plt.title('Ảnh nhị phân')
+Ảnh nhị phân sau ngưỡng hóa
 
-plt.subplot(1, 3, 3)
-plt.imshow(cv2.cvtColor(result, cv2.COLOR_BGR2RGB))
-plt.title(f'Số hạt gạo phát hiện ({len(contours)} hạt)')
-plt.show()
+Ảnh có khung xanh quanh các hạt gạo và tổng số lượng phát hiện được
+
+✅ Ưu điểm
+
+Tự động xác định ngưỡng tách vật thể (Otsu)
+
+Không cần học máy, dễ triển khai
+
+Hoạt động tốt với ảnh có nền tương phản rõ
+
+Có thể mở rộng sang các ứng dụng đếm đối tượng khác (hạt cà phê, tế bào, v.v.)
+
+⚠️ Nhược điểm
+
+Kém hiệu quả khi ảnh có ánh sáng không đều
+
+Otsu giả định histogram có hai đỉnh rõ ràng (bimodal)
+
+Các hạt dính nhau có thể bị đếm thiếu nếu tách chưa tốt
+
+Cần tinh chỉnh tham số Distance Transform hoặc kích thước kernel để đạt kết quả tối ưu
+
+🚀 Hướng phát triển
+
+🧩 Watershed Segmentation: tách ranh giới hạt dính nhau chính xác hơn
+
+🌗 Adaptive Thresholding: xử lý ảnh có ánh sáng không đều
+
+🔍 Bộ lọc diện tích contour: bỏ qua các vật thể nhỏ không phải hạt gạo
+
+📈 Thống kê kích thước trung bình: phân tích hình dạng hoặc kích thước hạt
