@@ -82,7 +82,7 @@ filtered_contours = [c for c, a in zip(contours, areas) if a >= 0.08*max_area]
 print("Số hạt gạo:", len(filtered_contours))
 ```
 
-### B6. Kết quả hiển thị
+### B7. Kết quả hiển thị
 
 Chương trình hiển thị các cửa sổ:
 
