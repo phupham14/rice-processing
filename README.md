@@ -26,61 +26,59 @@ Ví dụ: ảnh xám chứa nhiều hạt gạo trên nền tương phản.
 
 ---
 
-📦 Hướng dẫn cài đặt
-1️⃣ Yêu cầu hệ thống
+## 📦 Hướng dẫn cài đặt
 
-Python ≥ 3.8
+### 1️⃣ Yêu cầu hệ thống
 
-OpenCV ≥ 4.5
+- Python ≥ 3.8
 
-NumPy
+- OpenCV ≥ 4.5
 
-Matplotlib
+- NumPy
 
-2️⃣ Cài đặt thư viện
-pip install opencv-python numpy matplotlib
+- Matplotlib
 
-3️⃣ Chạy chương trình
+### 2️⃣ Cài đặt thư viện
+`pip install opencv-python numpy matplotlib`
 
-Lưu file thành rice_counter.py, sau đó chạy:
+### 3️⃣ Chạy chương trình
 
-python rice_counter.py
-
+- Lưu file thành rice_counter.py, sau đó chạy: `python rice_counter.py`
 
 Kết quả sẽ hiển thị:
 
-Ảnh sau cân bằng sáng
+- Ảnh sau cân bằng sáng
 
-Ảnh nhị phân sau ngưỡng hóa
+- Ảnh nhị phân sau ngưỡng hóa
 
-Ảnh có khung xanh quanh các hạt gạo và tổng số lượng phát hiện được
+- Ảnh có khung xanh quanh các hạt gạo và tổng số lượng phát hiện được
 
-✅ Ưu điểm
+## ✅ Ưu điểm
 
-Tự động xác định ngưỡng tách vật thể (Otsu)
+- Tự động xác định ngưỡng tách vật thể (Otsu)
 
-Không cần học máy, dễ triển khai
+- Không cần học máy, dễ triển khai
 
-Hoạt động tốt với ảnh có nền tương phản rõ
+- Hoạt động tốt với ảnh có nền tương phản rõ
 
-Có thể mở rộng sang các ứng dụng đếm đối tượng khác (hạt cà phê, tế bào, v.v.)
+- Có thể mở rộng sang các ứng dụng đếm đối tượng khác (hạt cà phê, tế bào, v.v.)
 
-⚠️ Nhược điểm
+## ⚠️ Nhược điểm
 
-Kém hiệu quả khi ảnh có ánh sáng không đều
+- Kém hiệu quả khi ảnh có ánh sáng không đều
 
-Otsu giả định histogram có hai đỉnh rõ ràng (bimodal)
+- Otsu giả định histogram có hai đỉnh rõ ràng (bimodal)
 
-Các hạt dính nhau có thể bị đếm thiếu nếu tách chưa tốt
+- Các hạt dính nhau có thể bị đếm thiếu nếu tách chưa tốt
 
-Cần tinh chỉnh tham số Distance Transform hoặc kích thước kernel để đạt kết quả tối ưu
+- Cần tinh chỉnh tham số Distance Transform hoặc kích thước kernel để đạt kết quả tối ưu
 
-🚀 Hướng phát triển
+## 🚀 Hướng phát triển
 
-🧩 Watershed Segmentation: tách ranh giới hạt dính nhau chính xác hơn
+- 🧩 Watershed Segmentation: tách ranh giới hạt dính nhau chính xác hơn
 
-🌗 Adaptive Thresholding: xử lý ảnh có ánh sáng không đều
+- 🌗 Adaptive Thresholding: xử lý ảnh có ánh sáng không đều
 
-🔍 Bộ lọc diện tích contour: bỏ qua các vật thể nhỏ không phải hạt gạo
+- 🔍 Bộ lọc diện tích contour: bỏ qua các vật thể nhỏ không phải hạt gạo
 
-📈 Thống kê kích thước trung bình: phân tích hình dạng hoặc kích thước hạt
+- 📈 Thống kê kích thước trung bình: phân tích hình dạng hoặc kích thước hạt
